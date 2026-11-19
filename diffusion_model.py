@@ -13,6 +13,10 @@ def plot_prof(grid, elevation, color="r", title=None, output=None):
         plt.savefig(output)
 
 
+def calculate_stable_time_step(grid_spacing, diffusivity):
+    return 0.5 * grid_spacing**2 / diffusivity
+    
+
 D = 100 # diffusivity
 Lx = 300 # model domain
 
@@ -33,7 +37,7 @@ plot_prof(x, z, title="Initial hillslope profile", output="initial-prof.png")
 
 
 nt = 5000 # no. of time steps
-dt = 0.5 * dx**2 / D # time step
+dt = calculate_stable_time_step(dx, D)
 
 
 for t in range(0, nt):
